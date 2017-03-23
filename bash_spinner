@@ -1,0 +1,23 @@
+# Usage: spinner <PID>
+# Will print a color changing spinner until <PID> has exited
+
+function spinner () {
+        tput civis              # hide the cursor
+        mypid=$1                # get the PID of the program we're waiting for
+        spin='/-\|-*'           # set the characters to use
+        color=($(seq 1 255 ) )  # use the 255 ascii color codes
+        RANDOM=$$$(date +%s)
+        i=0
+        while kill -0 $mypid 2>/dev/null        # while the PID is running, loop
+        do
+                col=$(tput setaf ${color[$RANDOM % ${#color[@]} ]})     # get a random ascii color
+                i=$(( (i+1) %4 ))                                       # get the next spinner character
+                printf "${col}\r${spin:$i:1}"                           # erase previous, print new color and character
+                sleep .1
+        done
+        tput cnorm              # show the cursor again
+        printf "\r\e[0m"        # Set color back to "normal"
+}
+
+
+
