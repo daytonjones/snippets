@@ -18,7 +18,7 @@ function bash_spinner () {
             dot="true"
         fi
         col=$(tput setaf ${color[$RANDOM % ${#color[@]} ]})     # get a random ascii color
-        i=$(( (i+1) %4 ))                                       # get the next spinner character
+        i=$(( (i+1) %6 ))                                       # get the next spinner character
         if [[ "$dot" == "true" ]];then                          # if dot=true, print . before the spinner character
             printf "\b\e[0m.${col}${spin:$i:1}"
             dot="false"                                         # set dot back to false
