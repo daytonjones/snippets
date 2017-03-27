@@ -7,8 +7,17 @@ function color () {
 }
 
 IFS=$' \t\n'
-color {0..15}
-for ((i=0;i<6;i++)); do
-    color $(seq $((i*36+16)) $((i*36+51)))
-done
-color {232..255}
+read rows cols < <(stty size)       # get terminal size
+color {0..15}                       # print the first 16 color sequences
+
+if [[ "$cols" -le 80 ]];then        # format for 80 character width (or less) terminal screens
+    for ((i=0;i<12;i++));do
+        color $(seq $((i*19+16)) $((i*19+34)) ) # loop over the sequencs with 19 per row
+    done
+    color {244..255}                            # display remaining sequences
+else
+    for ((i=0;i<6;i++)); do         # format for wider terminal screens
+        color $(seq $((i*36+16)) $((i*36+51)))  # loop over the sequences with 36 per row
+    done
+    color {232..255}                            # display remaining sequences
+fi
