@@ -5,3 +5,19 @@ Convert seconds to Days Hours Minutes Seconds
     print "mins  ", ($sec/60)%60,          "\n";
     print "secs  ", $sec%60,               "\n";
 
+
+Convert xxxxx Bytes to "pretty" GB/MB/etc
+    @sizes=qw( B KB MB GB TB PB);
+    $b_size = shift;
+    $i = 0;
+    while ($b_size > 1024) {
+        $b_size = $b_size / 1024;
+        $i++;
+    }
+    if ($sizes[$i] eq B){
+        $b_size = "$b_size Bytes";
+    }else{
+        $b_size=sprintf ("%.3f $sizes[$i]", $b_size);
+    }
+    return($b_size);
+
