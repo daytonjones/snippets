@@ -2,6 +2,9 @@
 # Will print a color changing spinner until <PID> has exited
 # roughly every 30 seconds a '.' will be printed before the
 # spinner to show rough elapsed time
+#
+# clear;(/tmp/buh & ) ; PID=`pgrep -n buh` ; bash_spinner $PID
+
 
 function bash_spinner () {
     tput civis              # hide the cursor
